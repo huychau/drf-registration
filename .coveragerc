@@ -1,0 +1,11 @@
+[run]
+omit =
+  */usr/local/lib*
+  *migrations*
+  *management*
+  */test_*.py
+  */apps.py
+  */tests/utils.py
+  */tests/src*
+  *.tox*
+  *setup.py*

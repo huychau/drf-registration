@@ -1,0 +1,6 @@
+include README.md
+include requirements.txt
+include requirements/base.txt
+include tests/*
+recursive-include rest_registration/templates *.txt *.html
+recursive-include rest_registration/locale *.mo *.po
