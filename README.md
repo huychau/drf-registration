@@ -60,7 +60,12 @@ Change user password
 #### PUT: `/set-password/`
 Set user password when login with social account
 
-## Installing
+## Installation & Configuration
+- Install by use `pip`:
+```
+pip install drf-regisration
+```
+
 - Add `drf_registration` in `INSTALLED_APPS`
 ```
 INSTALLED_APPS = [
