@@ -1,4 +1,4 @@
-# Django Rest Framework Registration
+# DRF Registration
 
 User registration base on Django Rest Framework.
 
@@ -95,7 +95,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 ```
 
-You can update login username fields by change `LOGIN_USERNAME_FIELDS` in `DRF_REGISTRATION` object. Default to `['username, email,]`.
+You can update login username fields by change `LOGIN_USERNAME_FIELDS` in `DRF_REGISTRATION` object. Default to `['username', 'email',]`.
 
 - Set `DEFAULT_AUTHENTICATION_CLASSES` in `REST_FRAMEWORK` configuration
 
