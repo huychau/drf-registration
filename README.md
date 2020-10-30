@@ -1,5 +1,7 @@
 # DRF Registration
 
+[![Downloads](https://static.pepy.tech/personalized-badge/drf-registration?period=total&units=international_system&left_color=black&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/drf-registration)
+
 User registration base on Django Rest Framework.
 
 Check the document at https://drf-registration.readthedocs.io/
