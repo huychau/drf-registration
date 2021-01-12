@@ -2,10 +2,7 @@
 
 ## Installing
 
-At `testapp` root directory run:
-
-- Install requirements: `pip install -r requirements.txt`
-- Install drf_registration package locally: `pip install ../..`
+At `testapp` root directory run `pip install -r requirements.txt` to install packages
 
 ## Start server
 
