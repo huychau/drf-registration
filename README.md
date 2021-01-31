@@ -1,4 +1,6 @@
-# Django Rest Framework Registration
+# DRF Registration
+
+[![Downloads](https://static.pepy.tech/personalized-badge/drf-registration?period=total&units=international_system&left_color=black&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/drf-registration)
 
 User registration base on Django Rest Framework.
 
@@ -60,7 +62,12 @@ Change user password
 #### PUT: `/set-password/`
 Set user password when login with social account
 
-## Installing
+## Installation & Configuration
+- Install by use `pip`:
+```
+pip install drf-regisration
+```
+
 - Add `drf_registration` in `INSTALLED_APPS`
 ```
 INSTALLED_APPS = [
@@ -90,7 +97,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 ```
 
-You can update login username fields by change `LOGIN_USERNAME_FIELDS` in `DRF_REGISTRATION` object. Default to `['username, email,]`.
+You can update login username fields by change `LOGIN_USERNAME_FIELDS` in `DRF_REGISTRATION` object. Default to `['username', 'email',]`.
 
 - Set `DEFAULT_AUTHENTICATION_CLASSES` in `REST_FRAMEWORK` configuration
 
