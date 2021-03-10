@@ -59,7 +59,7 @@ class ProfileView(RetrieveUpdateAPIView):
         # USER_WRITE_ONLY_FIELDS not contain password field
         if 'password' in request.data.keys():
             request.data._mutable = True
-            self.request.user.set_password(request.data.pop('password'))
+            self.request.user.set_password(request.data.pop('password')[0])
             self.request.user.save()
             request.data._mutable = False
 
