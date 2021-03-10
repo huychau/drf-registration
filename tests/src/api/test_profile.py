@@ -42,7 +42,7 @@ class ProfileAPITestCase(BaseAPITestCase):
             )
         }
     )
-    def test_update_profile_pasword_ok(self):
+    def test_update_profile_password_ok(self):
         self.client.force_authenticate(user=self.user)
         old_password_hash = self.user.password
         params = {
