@@ -1,2 +1,2 @@
-drf-yasg
-drf-registration
+drf-yasg==1.17.1
+drf-registration>=0.1.0
