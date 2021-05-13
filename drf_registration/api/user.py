@@ -13,9 +13,10 @@ class UserSerializer(serializers.ModelSerializer):
     User serializer
     """
 
-    email = serializers.EmailField(
-        validators=[UniqueValidator(queryset=get_all_users(),
-                                    message=_('User with this email already exists.'))])
+    if 'email' in drfr_settings.USER_FIELDS:
+        email = serializers.EmailField(
+            validators=[UniqueValidator(queryset=get_all_users(),
+                                        message=_('User with this email already exists.'))])
 
     if 'username' in drfr_settings.USER_FIELDS:
         username = serializers.CharField(validators=[UniqueValidator(
