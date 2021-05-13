@@ -16,10 +16,12 @@ class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         validators=[UniqueValidator(queryset=get_all_users(),
                                     message=_('User with this email already exists.'))])
-    username = serializers.CharField(validators=[UniqueValidator(
-        queryset=get_all_users(),
-        message=_('User with this username already exists.')
-    )])
+
+    if 'username' in drfr_settings.USER_FIELDS:
+        username = serializers.CharField(validators=[UniqueValidator(
+            queryset=get_all_users(),
+            message=_('User with this username already exists.')
+        )])
 
     if enable_has_password():
         has_password = serializers.SerializerMethodField()
