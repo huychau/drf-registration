@@ -2,73 +2,39 @@
 
 [![Downloads](https://static.pepy.tech/personalized-badge/drf-registration?period=total&units=international_system&left_color=black&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/drf-registration)
 
-User registration base on Django Rest Framework.
+Simple user registration package based on Django Rest Framework. DRF Registration - The easy way to generate registration RESTful APIs.
 
 Check the document at https://drf-registration.readthedocs.io/
+
 
 ## Requirements
 - Django (>=2.0)
 - Django REST Framework (>=3.8.2)
 - Python (>=3.6)
 
+
 ## Features
-- [x] Register
-- [x] Verify/activate account by token sent to email
-- [x] Login use token
-- [x] Logout
-- [x] User profile
-- [x] Change password
-- [x] Reset password
+- Register
+- Verify/activate account by token sent to email
+- Login use token
+- Logout
+- User profile
+- Change password
+- Reset password
+- Login by socials (Facebook, Google)
+- Set password when login by social
+- Sync user account with socials
+- HTML email configuration
+- Test coverage (98%)
 
-## Future Features
-- [x] Login by socials (Facebook, Google)
-- [x] Set password when login by social
-- [x] Sync user account with socials
-- [x] HTML email configuration
-- [x] Test coverage (98%)
-
-## Base APIs Design
-
-Assuming that base resource is `/api/v1/accounts/`
-
-### Regsiter
-#### POST: `/register/`
-Register new user
-
-### Verify account
-#### POST: `/verify/`
-Verify account by email
-
-### Login
-#### POST: `/login/`
-Login to the system use username/email and password
-
-### Logout
-#### POST: `/logout/`
-Logout of the system
-
-### Profile
-#### GET: `/profile/`
-Get user profile
-
-#### PUT: `/profile/`
-Update user profile
-
-### Change password
-#### PUT: `/change-password/`
-Change user password
-
-### Set password
-#### PUT: `/set-password/`
-Set user password when login with social account
 
 ## Installation & Configuration
-- Install by use `pip`:
+Install by use `pip`:
 ```
-pip install drf-regisration
+pip install drf-registration
 ```
 
-- Add `drf_registration` in `INSTALLED_APPS`
+Add `drf_registration` in `INSTALLED_APPS`
 ```
 INSTALLED_APPS = [
     ...
@@ -79,7 +45,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-- Include urls of `drf_registration` in `urls.py`
+Include urls of `drf_registration` in `urls.py`
 ```
 urlpatterns = [
     ...
@@ -88,8 +54,9 @@ urlpatterns = [
 ]
 ```
 
+
 ## Settings
-- Set `AUTHENTICATION_BACKEND` for support login by multiple custom fields and check inactivate user when login:
+Set `AUTHENTICATION_BACKEND` for support login by multiple custom fields and check inactivate user when login:
 
 ```
 AUTHENTICATION_BACKENDS = [
@@ -116,31 +83,44 @@ DRF_REGISTRATION = {
 }
 ```
 
+Check default settings [here](https://drf-registration.readthedocs.io/en/latest/settings/index.html).
+
+
+## Base APIs Design
+
+Assuming that base resource is `/api/v1/accounts/`
+
+- `POST: /register/`: Register new user
+- `POST: /verify/`: Verify account by email
+- `POST: /login/`: Login to the system use username/email and password
+- `POST: /logout/`: Logout of the system
+- `GET: /profile/`: Get user profile
+- `PUT: /profile/`: Update user profile
+- `PUT: /change-password/`: Change user password
+- `PUT: /set-password/`: Set user password when login with social account
+
+Check more APIs Design at [here](https://drf-registration.readthedocs.io/en/latest/apis.html).
+
 ## Command line
 
-- Unit Test
+Unit Test
 ```
 make test
 ```
 *You can add `ARGS="specific_folder/"` or `ARGS="specific_file.py"` to run specific test cases.*
 
-- Run pylint
+Run pylint
 ```
 make pylint
 ```
 
-- Build & run docs local server
+Build & run docs local server
 ```
 make docs
 ```
 Access docs server at http://localhost:8080
 
-- Clean
+Clean
 ```
 make clean
 ```
-
-## Test coverage
-
-![Test coverage](coverage.png)
-
