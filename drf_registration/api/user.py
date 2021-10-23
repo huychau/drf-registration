@@ -14,9 +14,10 @@ class UserSerializer(serializers.ModelSerializer):
     """
 
     if 'email' in drfr_settings.USER_FIELDS:
-        email = serializers.EmailField(
-            validators=[UniqueValidator(queryset=get_all_users(),
-                                        message=_('User with this email already exists.'))])
+        email = serializers.EmailField(validators=[UniqueValidator(
+            queryset=get_all_users(),
+            message=_('User with this email already exists.')
+        )])
 
     if 'username' in drfr_settings.USER_FIELDS:
         username = serializers.CharField(validators=[UniqueValidator(
@@ -30,16 +31,14 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
 
-        # Check to reponse has password field in the case enable
-        # Facebook or Google login
-
-        fields = drfr_settings.USER_FIELDS + \
-            ('has_password',) if enable_has_password() else drfr_settings.USER_FIELDS
+        # Check to response has password field in the case enable Facebook or Google login
+        fields = drfr_settings.USER_FIELDS + ('has_password',) if enable_has_password() else drfr_settings.USER_FIELDS
         read_only_fields = drfr_settings.USER_READ_ONLY_FIELDS
         extra_kwargs = {'password': {'write_only': True}}
 
     def get_has_password(self, user):
         """
-        Custom reponse field to check user has password or not
+        Custom response field to check user has password or not
         """
-        return True if user.password else False
+
+        return bool(user.password)

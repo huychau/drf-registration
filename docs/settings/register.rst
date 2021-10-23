@@ -3,7 +3,7 @@
 Register
 ========
 
-You can check the :ref:`user` for thre Register flow configurations.
+You can check the :ref:`user` for the Register flow configurations.
 
 
 .. data:: REGISTER_SERIALIZER
@@ -27,7 +27,7 @@ You can check the :ref:`user` for thre Register flow configurations.
 
 .. data:: REGISTER_SEND_WELCOME_EMAIL_ENABLED
 
-    Send welcome email afer register successfully
+    Send welcome email after register successfully
 
     Default: ``False``
 

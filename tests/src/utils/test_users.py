@@ -1,11 +1,10 @@
-from tests.utils import BaseTestCase
 from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
 from rest_framework.authtoken.models import Token
 
-from django.test.utils import override_settings
-from drf_registration.utils import users
 from drf_registration.api.user import UserSerializer
+from drf_registration.utils import users
+from tests.utils import BaseTestCase
 
 
 class UtilUsersTestCases(BaseTestCase):
@@ -48,7 +47,6 @@ class UtilUsersTestCases(BaseTestCase):
         self.assertEqual(Token.objects.filter(user=self.user).count(), 0)
 
     def test_get_user_profile_data(self):
-
         data = users.get_user_profile_data(self.user)
         self.assertEqual(data['id'], self.user.id)
         self.assertEqual(data['username'], self.user.username)

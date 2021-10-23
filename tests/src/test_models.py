@@ -1,6 +1,5 @@
-from django.test.utils import override_settings
-from tests.utils import BaseModelTestCase
 from drf_registration.utils.users import get_user_model
+from tests.utils import BaseModelTestCase
 
 
 class UserModelTestCases(BaseModelTestCase):

@@ -6,6 +6,7 @@ class AttributeDict(dict):
     """
     Access to dictionary attributes
     """
+
     __getattr__ = dict.get
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
@@ -28,7 +29,7 @@ def generate_settings(user_settings, default_settings):
 
     Args:
         user_settings (dict): user settings
-        default_settings (list, optional): The list of sertting properties. Defaults to [].
+        default_settings (list, optional): The list of settings properties. Defaults to [].
     """
     result = {}
 

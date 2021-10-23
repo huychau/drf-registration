@@ -1,4 +1,5 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+
 try:
     from django.utils import six
 except:
@@ -15,11 +16,13 @@ class CustomAccountActivationTokenGenerator(PasswordResetTokenGenerator):
         PasswordResetTokenGenerator (class): Strategy object used to generate
         and check tokens for the password reset mechanism.
     """
+
     def _make_hash_value(self, user, timestamp):
         return (
             six.text_type(user.pk) + six.text_type(timestamp) +
             six.text_type(get_user_verified(user))
         )
+
 
 class CustomPasswordResetTokenGenerator(PasswordResetTokenGenerator):
     """

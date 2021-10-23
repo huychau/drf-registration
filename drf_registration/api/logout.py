@@ -1,10 +1,10 @@
-from rest_framework.response import Response
-from rest_framework import status
 from rest_framework import permissions
+from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from drf_registration.utils.users import remove_user_token
 from drf_registration.settings import drfr_settings
+from drf_registration.utils.users import remove_user_token
 
 
 class LogoutView(APIView):

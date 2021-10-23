@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.conf import settings
 from django.test.utils import override_settings
 
 from drf_registration.utils.common import generate_settings, get_django_settings

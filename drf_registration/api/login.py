@@ -56,8 +56,7 @@ class LoginView(CreateAPIView):
     This is used to Login into system.
     """
 
-    permission_classes = import_string_list(
-        drfr_settings.LOGIN_PERMISSION_CLASSES)
+    permission_classes = import_string_list(drfr_settings.LOGIN_PERMISSION_CLASSES)
     serializer_class = import_string(drfr_settings.LOGIN_SERIALIZER)
 
     def post(self, request, *args, **kwargs):
@@ -105,6 +104,7 @@ class SocialLoginView(CreateAPIView):
         """
         Authenticate user through the provider and access_token
         """
+
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -127,7 +127,7 @@ class SocialLoginView(CreateAPIView):
         if not user_data.get('email'):
             raise MissingEmail()
 
-        # create user if not exist
+        # Create user if not exist
         User = get_user_model()
         try:
             user = User.objects.get(email=user_data['email'])

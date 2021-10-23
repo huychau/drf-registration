@@ -7,7 +7,7 @@ from drf_registration.settings import drfr_settings
 
 class MultiFieldsModelBackend(ModelBackend):
     """
-    This is a ModelBacked that allows authentication with either any username fileds from config.
+    This is a ModelBacked that allows authentication with either any username fields from config.
     Login by username (or email) and password by default.
     The username fields must unique value.
     """
@@ -21,7 +21,7 @@ class MultiFieldsModelBackend(ModelBackend):
 
             # Build filters with OR condition
             for login_field in drfr_settings.LOGIN_USERNAME_FIELDS:
-                filters |= Q(**{login_field:username})
+                filters |= Q(**{login_field: username})
 
             user = get_user_model().objects.get(filters)
 

@@ -1,27 +1,27 @@
-from django.utils.translation import gettext as _
 from django.contrib.auth import password_validation
-
-from rest_framework import status
+from django.utils.translation import gettext as _
 from rest_framework import serializers
+from rest_framework import status
 from rest_framework.generics import UpdateAPIView
 from rest_framework.response import Response
 
-
 from drf_registration.settings import drfr_settings
-from drf_registration.utils.users import get_user_profile_data
 from drf_registration.utils.common import import_string, import_string_list
+from drf_registration.utils.users import get_user_profile_data
 
 
 class SetPasswordSerializer(serializers.Serializer):
     """
     Set password serializer
     """
+
     password = serializers.CharField()
 
     def validate_password(self, password):
         """
         Validate user password
         """
+
         user = self.context['request'].user
         if user.password:
             raise serializers.ValidationError(_('Your password is already existed.'))
@@ -40,6 +40,7 @@ class SetPasswordView(UpdateAPIView):
     """
     Set user password
     """
+    
     permission_classes = import_string_list(drfr_settings.SET_PASSWORD_PERMISSION_CLASSES)
     serializer_class = import_string(drfr_settings.SET_PASSWORD_SERIALIZER)
 

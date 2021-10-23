@@ -1,8 +1,8 @@
 from django.test import override_settings
-from django.http.response import Http404
-from tests.utils import BaseTestCase
-from drf_registration.utils import socials
+
 from drf_registration import constants
+from drf_registration.utils import socials
+from tests.utils import BaseTestCase
 
 
 class UtilSocialsTestCases(BaseTestCase):

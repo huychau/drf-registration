@@ -1,7 +1,6 @@
 import requests
 from rest_framework.utils import json
 
-from drf_registration.settings import drfr_settings
 from drf_registration.constants import (
     FACEBOOK_PROVIDER,
     FACEBOOK_AUTH_URL,
@@ -9,6 +8,7 @@ from drf_registration.constants import (
     GOOGLE_AUTH_URL,
     GOOGLE_PROVIDER,
 )
+from drf_registration.settings import drfr_settings
 
 
 def is_valid_provider(provider):
@@ -16,58 +16,58 @@ def is_valid_provider(provider):
     Check is valid provider if enabled, if not raise 404 error
 
     Args:
-        provider (string): The providor name
+        provider (string): The provider name
 
     Returns:
-        [boolean]: Is valid provider
+        [bool]: Is valid provider
     """
 
-    # Check in the case enable Login using Facebook
-    if is_facebook_provider(provider) and drfr_settings.FACEBOOK_LOGIN_ENABLED:
-        return True
+    return (
+        (is_facebook_provider(provider) and drfr_settings.FACEBOOK_LOGIN_ENABLED) or
+        (is_google_provider(provider) and drfr_settings.GOOGLE_LOGIN_ENABLED)
+    )
 
-    # Check in the case enable Login using Google
-    if is_google_provider(provider) and drfr_settings.GOOGLE_LOGIN_ENABLED:
-        return True
-
-    return False
 
 def is_facebook_provider(provider):
     """
     Check is Facebook provider
 
     Args:
-        provider ([string]): The provider name
+        provider (str): The provider name
 
     Returns:
-        [type]: Is Facebook provider
+        [bool]: Is Facebook provider
     """
+
     return provider == FACEBOOK_PROVIDER
+
 
 def is_google_provider(provider):
     """
     Check is Google provider
 
     Args:
-        provider ([string]): The provider name
+        provider (str): The provider name
 
     Returns:
-        [type]: Is Google provider
+        [bool]: Is Google provider
     """
     return provider == GOOGLE_PROVIDER
 
+
 def get_user_info(provider, access_token):
     """
-    Get user information by use valid access token
-    and request to sicoal APIs
+    Get user information by use valid access token and request to social APIs
 
     Args:
-        provider ([string]): The provider name
-        access_token (string): Access token
+        provider (str): The provider name
+        access_token (str): Access token
 
     Returns:
         [object]: The user information
     """
+
+    request_api = ''
 
     # Check is Facebook provider
     # Ref: https://developers.facebook.com/docs/graph-api/using-graph-api/
@@ -92,11 +92,13 @@ def get_user_info(provider, access_token):
     # Check error
     return None if 'error' in data else data
 
+
 def enable_has_password():
     """
     Check to show has password field
 
     Returns:
-        [boolean]: Enable has_password field or not
+        [bool]: Enable has_password field or not
     """
+
     return drfr_settings.FACEBOOK_LOGIN_ENABLED or drfr_settings.GOOGLE_LOGIN_ENABLED

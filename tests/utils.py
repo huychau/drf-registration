@@ -1,5 +1,7 @@
+from django.core.exceptions import FieldDoesNotExist
 from django.test import TestCase
 from rest_framework.test import APIClient
+
 from drf_registration.utils.users import get_user_model
 
 
@@ -21,11 +23,12 @@ class BaseModelTestCase(BaseTestCase):
 
         Args:
             model (class): The model instance
-            field (string): The field in model
+            field (str): The field in model
 
         Returns:
-            [boolean]: Has field in model or not
+            [bool]: Has field in model or not
         """
+
         try:
             model._meta.get_field(field)
             return True
@@ -33,7 +36,6 @@ class BaseModelTestCase(BaseTestCase):
             return False
 
     def assertHasModelFields(self, model, fields=[]):
-
         for field in fields:
             self.assertTrue(self.hasModelField(model, field))
 
@@ -94,12 +96,12 @@ class BaseAPITestCase(BaseTestCase):
 
         # TODO: Create url from params
         if params:
-           pass
+            pass
 
         return f'{self.endpoint}{uri}'
 
     # GET JSON
-    #---------------------------------------#
+    # ---------------------------------------#
     def get_json(self, fragment='', **params):
         self.request_config()
 
@@ -118,7 +120,7 @@ class BaseAPITestCase(BaseTestCase):
         return resp
 
     # POST JSON
-    #---------------------------------------#
+    # ---------------------------------------#
     def post_json(self, fragment='', data=None, **params):
         self.request_config()
 
@@ -155,7 +157,7 @@ class BaseAPITestCase(BaseTestCase):
         self.assertHttpNotFound(resp)
 
     # PUT JSON
-    #---------------------------------------#
+    # ---------------------------------------#
     def put_json(self, fragment='', data=None, **params):
         self.request_config()
 
