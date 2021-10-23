@@ -52,7 +52,7 @@ All default settings
         # User verify field
         'USER_VERIFY_FIELD': 'is_active',
 
-        # Activate user by toiken sent to email
+        # Activate user by token sent to email
         'USER_ACTIVATE_TOKEN_ENABLED': False,
         'USER_ACTIVATE_SUCSSESS_TEMPLATE': '',
         'USER_ACTIVATE_FAILED_TEMPLATE': '',
