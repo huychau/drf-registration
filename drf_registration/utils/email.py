@@ -36,7 +36,7 @@ def send_activate_token_email(user, domain):
 
     Args:
         user (object): The user instance
-        domain (string): The current domain
+        domain (str): The current domain
     """
 
     # Get activate link
@@ -82,6 +82,7 @@ def send_email_welcome(user):
 
     # Check to send welcome email to verified user
     if has_user_verified(user) and drfr_settings.REGISTER_SEND_WELCOME_EMAIL_ENABLED:
+
         # Default template message
         default_message = DEFAULT_EMAIL_BODY['WELCOME']
 
@@ -116,8 +117,7 @@ def send_reset_password_token_email(user, domain):
     )
 
     # Default template message
-    default_message = \
-        DEFAULT_EMAIL_BODY['RESET_PASSWORD'].format(reset_password_link=reset_password_link)
+    default_message = DEFAULT_EMAIL_BODY['RESET_PASSWORD'].format(reset_password_link=reset_password_link)
 
     html_template = drfr_settings.RESET_PASSWORD_EMAIL_TEMPLATE
 

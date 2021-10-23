@@ -19,18 +19,13 @@ def is_valid_provider(provider):
         provider (string): The provider name
 
     Returns:
-        [boolean]: Is valid provider
+        [bool]: Is valid provider
     """
 
-    # Check in the case enable Login using Facebook
-    if is_facebook_provider(provider) and drfr_settings.FACEBOOK_LOGIN_ENABLED:
-        return True
-
-    # Check in the case enable Login using Google
-    if is_google_provider(provider) and drfr_settings.GOOGLE_LOGIN_ENABLED:
-        return True
-
-    return False
+    return (
+        (is_facebook_provider(provider) and drfr_settings.FACEBOOK_LOGIN_ENABLED) or
+        (is_google_provider(provider) and drfr_settings.GOOGLE_LOGIN_ENABLED)
+    )
 
 
 def is_facebook_provider(provider):
@@ -38,11 +33,12 @@ def is_facebook_provider(provider):
     Check is Facebook provider
 
     Args:
-        provider ([string]): The provider name
+        provider (str): The provider name
 
     Returns:
-        [type]: Is Facebook provider
+        [bool]: Is Facebook provider
     """
+
     return provider == FACEBOOK_PROVIDER
 
 
@@ -51,10 +47,10 @@ def is_google_provider(provider):
     Check is Google provider
 
     Args:
-        provider ([string]): The provider name
+        provider (str): The provider name
 
     Returns:
-        [type]: Is Google provider
+        [bool]: Is Google provider
     """
     return provider == GOOGLE_PROVIDER
 
@@ -102,6 +98,7 @@ def enable_has_password():
     Check to show has password field
 
     Returns:
-        [boolean]: Enable has_password field or not
+        [bool]: Enable has_password field or not
     """
+
     return drfr_settings.FACEBOOK_LOGIN_ENABLED or drfr_settings.GOOGLE_LOGIN_ENABLED

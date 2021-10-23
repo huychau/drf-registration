@@ -22,6 +22,7 @@ class ResetPasswordSerializer(serializers.Serializer):
     Raises:
         UserNotFound: In the case can not found user email
     """
+
     email = serializers.EmailField()
 
     def validate(self, data):
@@ -71,7 +72,8 @@ class ResetPasswordView(APIView):
 
         return Response(
             {'detail': _('Password reset e-mail has been sent.')},
-            status=status.HTTP_200_OK)
+            status=status.HTTP_200_OK
+        )
 
 
 class ResetPasswordConfirmView(PasswordResetConfirmView):

@@ -22,7 +22,7 @@ class ProfileSerializer(get_user_serializer()):
             if request and getattr(request, 'method', None) == 'PUT':
                 kwargs['partial'] = True
 
-        super(ProfileSerializer, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class ProfileView(RetrieveUpdateAPIView):
@@ -62,4 +62,4 @@ class ProfileView(RetrieveUpdateAPIView):
             self.request.user.save()
             request.data._mutable = False
 
-        return super(ProfileView, self).update(request, *args, **kwargs)
+        return super().update(request, *args, **kwargs)

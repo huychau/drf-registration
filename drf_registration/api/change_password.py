@@ -14,6 +14,7 @@ class ChangePasswordSerializer(serializers.Serializer):
     """
     Change password serializer
     """
+
     old_password = serializers.CharField()
     new_password = serializers.CharField()
 
@@ -21,6 +22,7 @@ class ChangePasswordSerializer(serializers.Serializer):
         """
         Validate user password
         """
+
         user = self.context['request'].user
 
         if not user.check_password(old_password):
@@ -31,6 +33,7 @@ class ChangePasswordSerializer(serializers.Serializer):
         """
         Validate user password
         """
+
         user = self.context['request'].user
         password_validation.validate_password(new_password, user)
         return new_password
@@ -47,6 +50,7 @@ class ChangePasswordView(UpdateAPIView):
     """
     Change user password
     """
+    
     permission_classes = import_string_list(drfr_settings.CHANGE_PASSWORD_PERMISSION_CLASSES)
     serializer_class = import_string(drfr_settings.CHANGE_PASSWORD_SERIALIZER)
 

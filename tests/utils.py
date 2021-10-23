@@ -23,11 +23,12 @@ class BaseModelTestCase(BaseTestCase):
 
         Args:
             model (class): The model instance
-            field (string): The field in model
+            field (str): The field in model
 
         Returns:
-            [boolean]: Has field in model or not
+            [bool]: Has field in model or not
         """
+
         try:
             model._meta.get_field(field)
             return True
@@ -35,7 +36,6 @@ class BaseModelTestCase(BaseTestCase):
             return False
 
     def assertHasModelFields(self, model, fields=[]):
-
         for field in fields:
             self.assertTrue(self.hasModelField(model, field))
 

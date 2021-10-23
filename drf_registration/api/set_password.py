@@ -14,12 +14,14 @@ class SetPasswordSerializer(serializers.Serializer):
     """
     Set password serializer
     """
+
     password = serializers.CharField()
 
     def validate_password(self, password):
         """
         Validate user password
         """
+
         user = self.context['request'].user
         if user.password:
             raise serializers.ValidationError(_('Your password is already existed.'))
@@ -38,6 +40,7 @@ class SetPasswordView(UpdateAPIView):
     """
     Set user password
     """
+    
     permission_classes = import_string_list(drfr_settings.SET_PASSWORD_PERMISSION_CLASSES)
     serializer_class = import_string(drfr_settings.SET_PASSWORD_SERIALIZER)
 

@@ -32,8 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
 
         # Check to response has password field in the case enable Facebook or Google login
-        fields = drfr_settings.USER_FIELDS + \
-            ('has_password',) if enable_has_password() else drfr_settings.USER_FIELDS
+        fields = drfr_settings.USER_FIELDS + ('has_password',) if enable_has_password() else drfr_settings.USER_FIELDS
         read_only_fields = drfr_settings.USER_READ_ONLY_FIELDS
         extra_kwargs = {'password': {'write_only': True}}
 
@@ -41,4 +40,5 @@ class UserSerializer(serializers.ModelSerializer):
         """
         Custom response field to check user has password or not
         """
-        return True if user.password else False
+
+        return bool(user.password)

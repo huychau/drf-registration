@@ -32,6 +32,7 @@ class RegisterSerializer(get_user_serializer()):
         """
         Validate user password
         """
+
         password_validation.validate_password(value, self.instance)
         return value
 
@@ -39,14 +40,13 @@ class RegisterSerializer(get_user_serializer()):
         """
         Override create method to create user password
         """
+
         user = super().create(validated_data)
         user.set_password(validated_data['password'])
 
         # Disable verified if enable verify user, else set it enabled
-        if has_user_activate_token() or has_user_verify_code():
-            set_user_verified(user, False)
-        else:
-            set_user_verified(user, True)
+        user_verified = not (has_user_activate_token() or has_user_verify_code())
+        set_user_verified(user, user_verified)
         user.save()
         return user
 
@@ -55,8 +55,8 @@ class RegisterView(CreateAPIView):
     """
     Register a new user to the system
     """
-    permission_classes = import_string_list(
-        drfr_settings.REGISTER_PERMISSION_CLASSES)
+
+    permission_classes = import_string_list(drfr_settings.REGISTER_PERMISSION_CLASSES)
     serializer_class = import_string(drfr_settings.REGISTER_SERIALIZER)
 
     def create(self, request, *args, **kwargs):
@@ -98,6 +98,7 @@ class ActivateView(View):
             token (string): The user token
 
         """
+
         user = get_user_from_uid(uidb64)
 
         if user and activation_token.check_token(user, token):
