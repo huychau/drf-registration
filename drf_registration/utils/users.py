@@ -1,8 +1,7 @@
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
-from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model as django_get_user_model
-
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework.authtoken.models import Token
 
 from drf_registration.settings import drfr_settings
@@ -15,11 +14,13 @@ def get_user_model():
     """
     return django_get_user_model()
 
+
 def get_all_users():
     """
     Get all users  queryset
     """
     return get_user_model().objects.all()
+
 
 def get_user_serializer():
     """
@@ -27,6 +28,7 @@ def get_user_serializer():
     """
 
     return import_string(drfr_settings.USER_SERIALIZER)
+
 
 def get_user_token(user):
     """
@@ -43,6 +45,7 @@ def get_user_token(user):
 
     return token
 
+
 def remove_user_token(user):
     """
     Remove user token
@@ -54,6 +57,7 @@ def remove_user_token(user):
 
     # Remove old token
     Token.objects.filter(user=user).delete()
+
 
 def get_user_profile_data(user):
     """
@@ -74,6 +78,7 @@ def get_user_profile_data(user):
 
     return data
 
+
 def has_user_activate_token():
     """
     Check to has user verify token from settings
@@ -83,6 +88,7 @@ def has_user_activate_token():
     """
     return drfr_settings.USER_ACTIVATE_TOKEN_ENABLED
 
+
 def has_user_verify_code():
     """
     Check to has user verify code from settings
@@ -91,6 +97,7 @@ def has_user_verify_code():
         [boolean]: True if USER_VERIFY_CODE_ENABLED is True, else is False
     """
     return drfr_settings.USER_VERIFY_CODE_ENABLED
+
 
 def has_user_verified(user):
     """
@@ -104,6 +111,7 @@ def has_user_verified(user):
     """
     return get_user_verified(user)
 
+
 def get_user_verified(user):
     """
     Get user verify value
@@ -116,15 +124,18 @@ def get_user_verified(user):
     """
     return getattr(user, drfr_settings.USER_VERIFY_FIELD)
 
+
 def set_user_verified(user, verified=True):
     """
     Set user verified
 
     Args:
         user (object): The user instance
+        verified (bool): The verified value
     """
     setattr(user, drfr_settings.USER_VERIFY_FIELD, verified)
     user.save()
+
 
 def generate_user_uid(user):
     """
@@ -134,10 +145,11 @@ def generate_user_uid(user):
         user (object): The user object
 
     Returns:
-        [string]: The UID
+        [str]: The UID
     """
 
     return urlsafe_base64_encode(force_bytes(user.pk))
+
 
 def generate_uid_and_token(user, token_generator=None):
     """
@@ -158,6 +170,7 @@ def generate_uid_and_token(user, token_generator=None):
         'token': token_generator.make_token(user)
     }
 
+
 def get_user_from_uid(uidb64):
     """
     Get user from uidb64
@@ -173,5 +186,5 @@ def get_user_from_uid(uidb64):
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = get_user_model().objects.get(pk=uid)
         return user
-    except:
+    except get_user_model().DoesNotExist:
         return None

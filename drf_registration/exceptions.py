@@ -5,7 +5,7 @@ from rest_framework import status
 
 class NotActivated(APIException):
     """
-    Custom not acitvated exception when user is not activated
+    Custom not activate exception when user is not activated
 
     Args:
         APIException (class): Base class for exceptions

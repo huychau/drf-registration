@@ -127,7 +127,7 @@ class SocialLoginView(CreateAPIView):
         if not user_data.get('email'):
             raise MissingEmail()
 
-        # create user if not exist
+        # Create user if not exist
         User = get_user_model()
         try:
             user = User.objects.get(email=user_data['email'])

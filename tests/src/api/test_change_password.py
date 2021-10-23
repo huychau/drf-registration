@@ -1,4 +1,3 @@
-from django.test.utils import override_settings
 from tests.utils import BaseAPITestCase
 
 
@@ -24,7 +23,10 @@ class ChangePasswordAPITestCase(BaseAPITestCase):
             'new_password': 'short'
         }
         resp = self.put_json_bad_request('change-password/', params)
-        self.assertHasErrorDetail(resp.data['new_password'], 'This password is too short. It must contain at least 8 characters.')
+        self.assertHasErrorDetail(
+            resp.data['new_password'],
+            'This password is too short. It must contain at least 8 characters.'
+        )
 
     def test_change_password_ok(self):
         self.client.force_authenticate(user=self.user)

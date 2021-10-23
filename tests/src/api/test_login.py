@@ -1,6 +1,7 @@
 from django.test import override_settings
-from tests.utils import BaseAPITestCase
+
 from drf_registration.utils.users import set_user_verified
+from tests.utils import BaseAPITestCase
 
 
 class LoginAPITestCase(BaseAPITestCase):
@@ -112,4 +113,3 @@ class SocialLoginAPITestCase(BaseAPITestCase):
             'access_token': 'invalid'
         }
         self.post_json_bad_request('login/social/', params)
-

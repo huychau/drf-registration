@@ -20,7 +20,6 @@ INSTALLED_APPS = (
     'drf_registration',
 )
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,7 +55,6 @@ DATABASES = {
 AUTHENTICATION_BACKENDS = [
     'drf_registration.auth.MultiFieldsModelBackend',
 ]
-
 
 STATIC_URL = '/static/'
 

@@ -1,17 +1,17 @@
-from django.utils.translation import gettext as _
 from django.contrib.auth import password_validation
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+from django.utils.translation import gettext as _
 from django.views import View
-
-from rest_framework.generics import CreateAPIView
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.generics import CreateAPIView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from drf_registration.settings import drfr_settings
 from drf_registration.tokens import activation_token
 from drf_registration.utils.common import import_string, import_string_list
+from drf_registration.utils.domain import get_current_domain
 from drf_registration.utils.email import send_verify_email, send_email_welcome
 from drf_registration.utils.users import (
     get_user_profile_data,
@@ -21,7 +21,6 @@ from drf_registration.utils.users import (
     set_user_verified,
     get_user_from_uid,
 )
-from drf_registration.utils.domain import get_current_domain
 
 
 class RegisterSerializer(get_user_serializer()):
@@ -43,7 +42,7 @@ class RegisterSerializer(get_user_serializer()):
         user = super().create(validated_data)
         user.set_password(validated_data['password'])
 
-        # Disable veriried if enable verify user, else set it enabled
+        # Disable verified if enable verify user, else set it enabled
         if has_user_activate_token() or has_user_verify_code():
             set_user_verified(user, False)
         else:
@@ -106,11 +105,12 @@ class ActivateView(View):
 
             send_email_welcome(user)
 
-            if drfr_settings.USER_ACTIVATE_SUCSSESS_TEMPLATE:
-                return render(request, drfr_settings.USER_ACTIVATE_SUCSSESS_TEMPLATE) # pragma: no cover
+            if drfr_settings.USER_ACTIVATE_SUCCESS_TEMPLATE:
+                return render(request, drfr_settings.USER_ACTIVATE_SUCCESS_TEMPLATE)  # pragma: no cover
             return HttpResponse(_('Your account has been activate successfully.'))
 
         if drfr_settings.USER_ACTIVATE_FAILED_TEMPLATE:
-            return render(request, drfr_settings.USER_ACTIVATE_FAILED_TEMPLATE) # pragma: no cover
-        return HttpResponse(_('Either the provided activation token is '
-                              'invalid or this account has already been activated.'))
+            return render(request, drfr_settings.USER_ACTIVATE_FAILED_TEMPLATE)  # pragma: no cover
+        return HttpResponse(
+            _('Either the provided activation token is invalid or this account has already been activated.')
+        )

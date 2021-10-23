@@ -1,9 +1,10 @@
+from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.conf import settings
 from django.urls import reverse
 
 from drf_registration.constants import DEFAULT_EMAIL_BODY
+from drf_registration.settings import drfr_settings
 from drf_registration.tokens import activation_token, reset_password_token
 from drf_registration.utils.users import (
     has_user_activate_token,
@@ -11,7 +12,6 @@ from drf_registration.utils.users import (
     has_user_verified,
     generate_uid_and_token,
 )
-from drf_registration.settings import drfr_settings
 
 
 def send_verify_email(user, domain=''):
@@ -20,6 +20,7 @@ def send_verify_email(user, domain=''):
 
     Args:
         user (object): The user instance
+        domain (str): The domain value
     """
 
     if has_user_activate_token():
@@ -27,6 +28,7 @@ def send_verify_email(user, domain=''):
 
     if has_user_verify_code():
         send_verify_code_email(user)
+
 
 def send_activate_token_email(user, domain):
     """
@@ -38,8 +40,7 @@ def send_activate_token_email(user, domain):
     """
 
     # Get activate link
-    activate_link = domain + \
-        reverse('activate', kwargs=generate_uid_and_token(user, activation_token))
+    activate_link = domain + reverse('activate', kwargs=generate_uid_and_token(user, activation_token))
 
     # Default template message
     default_message = DEFAULT_EMAIL_BODY['ACTIVATE'].format(activate_link=activate_link)
@@ -57,9 +58,10 @@ def send_activate_token_email(user, domain):
         subject=drfr_settings.USER_ACTIVATE_EMAIL_SUBJECT,
         message='',
         from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[user.email,],
+        recipient_list=[user.email, ],
         html_message=html_message or default_message
     )
+
 
 def send_verify_code_email(user):
     """
@@ -68,6 +70,7 @@ def send_verify_code_email(user):
     Args:
         user (object): The user object
     """
+
 
 def send_email_welcome(user):
     """
@@ -79,7 +82,6 @@ def send_email_welcome(user):
 
     # Check to send welcome email to verified user
     if has_user_verified(user) and drfr_settings.REGISTER_SEND_WELCOME_EMAIL_ENABLED:
-
         # Default template message
         default_message = DEFAULT_EMAIL_BODY['WELCOME']
 
@@ -93,7 +95,7 @@ def send_email_welcome(user):
             subject=drfr_settings.REGISTER_SEND_WELCOME_EMAIL_SUBJECT,
             message='',
             from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email,],
+            recipient_list=[user.email, ],
             html_message=html_message or default_message
         )
 
@@ -108,9 +110,10 @@ def send_reset_password_token_email(user, domain):
     """
 
     # Get activate link
-    reset_password_link = domain + \
-        reverse('reset_password_confirm', \
-            kwargs=generate_uid_and_token(user, reset_password_token))
+    reset_password_link = domain + reverse(
+        'reset_password_confirm',
+        kwargs=generate_uid_and_token(user, reset_password_token)
+    )
 
     # Default template message
     default_message = \
@@ -129,6 +132,6 @@ def send_reset_password_token_email(user, domain):
         subject=drfr_settings.RESET_PASSWORD_EMAIL_SUBJECT,
         message='',
         from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[user.email,],
+        recipient_list=[user.email, ],
         html_message=html_message or default_message
     )

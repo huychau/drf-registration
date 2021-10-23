@@ -1,8 +1,9 @@
-from django.test import override_settings
 from django.core import mail
-from tests.utils import BaseAPITestCase
-from drf_registration.utils.users import generate_uid_and_token, set_user_verified
+from django.test import override_settings
+
 from drf_registration.tokens import activation_token
+from drf_registration.utils.users import generate_uid_and_token
+from tests.utils import BaseAPITestCase
 
 
 class RegisterAPITestCase(BaseAPITestCase):
@@ -24,7 +25,7 @@ class RegisterAPITestCase(BaseAPITestCase):
             'password': '123456',
         }
         resp = self.post_json_bad_request('register/', params)
-        self.assertHasProps(resp.data, ['username',])
+        self.assertHasProps(resp.data, ['username', ])
         self.assertHasErrorDetail(resp.data['username'], 'User with this username already exists.')
 
     def test_register_existed_email(self):
@@ -35,7 +36,7 @@ class RegisterAPITestCase(BaseAPITestCase):
         }
         resp = self.post_json_bad_request('register/', params)
 
-        self.assertHasProps(resp.data, ['email',])
+        self.assertHasProps(resp.data, ['email', ])
         self.assertHasErrorDetail(resp.data['email'], 'User with this email already exists.')
 
     def test_register_short_password(self):
@@ -46,7 +47,8 @@ class RegisterAPITestCase(BaseAPITestCase):
         }
         resp = self.post_json_bad_request('register/', params)
 
-        self.assertHasErrorDetail(resp.data['password'], 'This password is too short. It must contain at least 8 characters.')
+        self.assertHasErrorDetail(resp.data['password'],
+                                  'This password is too short. It must contain at least 8 characters.')
 
     @override_settings(
         DRF_REGISTRATION={
@@ -137,7 +139,10 @@ class RegisterAPITestCase(BaseAPITestCase):
 
     def test_register_activate_token_failed_views(self):
         resp = self.get_json_ok('activate/xxx/yyy/')
-        self.assertContains(resp, 'Either the provided activation token is invalid or this account has already been activated.')
+        self.assertContains(
+            resp,
+            'Either the provided activation token is invalid or this account has already been activated.'
+        )
 
     def test_register_activate_token_success_views(self):
         uid_token = generate_uid_and_token(self.user, activation_token)

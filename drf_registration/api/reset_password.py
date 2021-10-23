@@ -1,19 +1,18 @@
-from django.http import Http404
-from django.utils.translation import gettext as _
 from django.contrib.auth.views import PasswordResetConfirmView, PasswordResetCompleteView
+from django.http import Http404
 from django.urls import reverse_lazy
-
-from rest_framework.views import APIView
+from django.utils.translation import gettext as _
 from rest_framework import serializers
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from drf_registration.exceptions import UserNotFound
 from drf_registration.settings import drfr_settings
 from drf_registration.utils.common import import_string, import_string_list
 from drf_registration.utils.domain import get_current_domain
-from drf_registration.utils.users import get_user_model
 from drf_registration.utils.email import send_reset_password_token_email
+from drf_registration.utils.users import get_user_model
 
 
 class ResetPasswordSerializer(serializers.Serializer):
@@ -31,7 +30,7 @@ class ResetPasswordSerializer(serializers.Serializer):
             user = get_user_model().objects.get(email=data['email'])
         except get_user_model().DoesNotExist:
             raise UserNotFound()
-        # added user model to OrderedDict that serializer is validating
+        # Added user model to OrderedDict that serializer is validating
         data['user'] = user
 
         return data
@@ -74,6 +73,7 @@ class ResetPasswordView(APIView):
             {'detail': _('Password reset e-mail has been sent.')},
             status=status.HTTP_200_OK)
 
+
 class ResetPasswordConfirmView(PasswordResetConfirmView):
     """
     Custom reset password  confirm view
@@ -83,7 +83,7 @@ class ResetPasswordConfirmView(PasswordResetConfirmView):
 
     # Check in the case custom template name
     if drfr_settings.RESET_PASSWORD_CONFIRM_TEMPLATE:
-        template_name = drfr_settings.RESET_PASSWORD_CONFIRM_TEMPLATE # pragma: no cover
+        template_name = drfr_settings.RESET_PASSWORD_CONFIRM_TEMPLATE  # pragma: no cover
 
 
 class ResetPasswordCompleteView(PasswordResetCompleteView):
@@ -93,4 +93,4 @@ class ResetPasswordCompleteView(PasswordResetCompleteView):
 
     # Check in the case custom template name
     if drfr_settings.RESET_PASSWORD_SUCCESS_TEMPLATE:
-        template_name = drfr_settings.RESET_PASSWORD_SUCCESS_TEMPLATE # pragma: no cover
+        template_name = drfr_settings.RESET_PASSWORD_SUCCESS_TEMPLATE  # pragma: no cover

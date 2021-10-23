@@ -1,4 +1,5 @@
 from django.test.signals import setting_changed
+
 from drf_registration.utils.common import generate_settings, get_django_settings
 
 PACKAGE_NAME = 'drf_registration'
@@ -36,9 +37,9 @@ DEFAULT_SETTINGS = {
     'USER_VERIFY_CODE_ENABLED': False,
     'USER_VERIFY_FIELD': 'is_active',
 
-    # Activate user by toiken sent to email
+    # Activate user by token sent to email
     'USER_ACTIVATE_TOKEN_ENABLED': False,
-    'USER_ACTIVATE_SUCSSESS_TEMPLATE': '',
+    'USER_ACTIVATE_SUCCESS_TEMPLATE': '',
     'USER_ACTIVATE_FAILED_TEMPLATE': '',
     'USER_ACTIVATE_EMAIL_SUBJECT': 'Activate your account',
     'USER_ACTIVATE_EMAIL_TEMPLATE': '',
@@ -65,7 +66,7 @@ DEFAULT_SETTINGS = {
     ],
 
     # For custom login username fields
-    'LOGIN_USERNAME_FIELDS': ['username', 'email',],
+    'LOGIN_USERNAME_FIELDS': ['username', 'email', ],
 
     'LOGOUT_REMOVE_TOKEN': False,
 
@@ -99,10 +100,12 @@ DEFAULT_SETTINGS = {
 
 drfr_settings = generate_settings(get_django_settings(), DEFAULT_SETTINGS)
 
+
 def settings_changed_handler(*args, **kwargs):
     """
-    Listen user settings changed and update the defr_seetings properties values
+    Listen user settings changed and update the drfr_settings properties values
     """
+
     # Get the user setting values
     setting_values = kwargs['value']
     setting_key = kwargs['setting']
@@ -111,5 +114,6 @@ def settings_changed_handler(*args, **kwargs):
     if setting_values and setting_key == PACKAGE_OBJECT_NAME:
         for prop in setting_values:
             drfr_settings[prop] = setting_values[prop]
+
 
 setting_changed.connect(settings_changed_handler)

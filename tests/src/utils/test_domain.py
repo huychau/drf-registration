@@ -1,6 +1,7 @@
-from tests.utils import BaseTestCase
 from django.test.utils import override_settings
+
 from drf_registration.utils.domain import get_current_domain
+from tests.utils import BaseTestCase
 
 
 class UtilDomainTestCases(BaseTestCase):

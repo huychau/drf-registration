@@ -103,7 +103,7 @@ Those configurations for the Register flow.
         It only works with ``USER_ACTIVATE_TOKEN_ENABLED`` is ``True``
 
 
-.. data:: USER_ACTIVATE_SUCSSESS_TEMPLATE
+.. data:: USER_ACTIVATE_SUCCESS_TEMPLATE
 
     The template path when activate user successfully.
 

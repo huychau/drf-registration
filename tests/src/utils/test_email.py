@@ -1,10 +1,9 @@
 from django.core import mail
 from django.test import override_settings
 
-from tests.utils import BaseTestCase
-from drf_registration.utils.users import get_user_model
 from drf_registration.utils import email
-
+from drf_registration.utils.users import get_user_model
+from tests.utils import BaseTestCase
 
 
 class UtilEmailTestCases(BaseTestCase):
@@ -36,7 +35,6 @@ class UtilEmailTestCases(BaseTestCase):
         }
     )
     def test_send_verify_code_email(self):
-
         # TODO: Need to implement later
         email.send_verify_email(self.user, '')
 

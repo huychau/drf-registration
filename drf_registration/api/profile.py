@@ -1,7 +1,7 @@
 from rest_framework.generics import RetrieveUpdateAPIView
 
-from drf_registration.utils.common import import_string, import_string_list
 from drf_registration.settings import drfr_settings
+from drf_registration.utils.common import import_string, import_string_list
 from drf_registration.utils.users import get_all_users, get_user_serializer
 
 
@@ -46,7 +46,6 @@ class ProfileView(RetrieveUpdateAPIView):
         for field in drfr_settings.USER_WRITE_ONLY_FIELDS:
 
             if field in request.data.keys():
-
                 # Make it editable
                 request.data._mutable = True
 

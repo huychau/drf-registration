@@ -76,3 +76,6 @@ py36/
 
 # Docs
 _build
+
+.idea/
+venv/
