@@ -135,8 +135,8 @@ class SocialLoginView(CreateAPIView):
             user = User.objects.create(
                 username=user_data['email'],
                 email=user_data['email'],
-                first_name=user_data.get('first_name'),
-                last_name=user_data.get('last_name'),
+                first_name=user_data.get('given_name'),
+                last_name=user_data.get('family_name'),
             )
 
             # Always verified user if they using Google or Facebook
