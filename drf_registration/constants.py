@@ -20,7 +20,7 @@ DEFAULT_EMAIL_BODY = {
 
 # Social login
 FACEBOOK_PROVIDER = 'facebook'
-FACEBOOK_AUTH_URL = 'https://graph.facebook.com/v2.4/me'
+FACEBOOK_AUTH_URL = 'https://graph.facebook.com/v13.0/me'
 FACEBOOK_FIELDS = 'email,first_name,last_name,gender,birthday'
 
 GOOGLE_PROVIDER = 'google'
