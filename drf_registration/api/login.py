@@ -15,6 +15,7 @@ from drf_registration.utils.users import (
     set_user_verified,
 )
 from drf_registration.utils import socials
+from drf_registration.constants import FACEBOOK_PROVIDER
 from drf_registration.exceptions import (
     NotActivated,
     LoginFailed,
